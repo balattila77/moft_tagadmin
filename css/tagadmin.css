@@ -1,0 +1,28 @@
+.et_pb_contact p input, .et_pb_contact p textarea, .et_pb_subscribe .et_pb_contact_field input, .et_pb_subscribe .et_pb_contact_field textarea{
+    border: 1px solid #666;
+    border-width: 1px !important;
+}
+
+.et_pb_contact p input[type="submit"]{
+    background-color: #001730 !important;
+    color: #00ffff !important;
+    border-width: 0 !important;
+    cursor: pointer;
+    width: 400px;
+    margin: auto;
+}
+
+.pdfobject-container { height: 40rem;  }
+
+.et_pb_contact p input[type="checkbox"]:checked+label i:before{color: #048b31 !important;}
+.et_pb_counter_amount, .et_pb_featured_table .et_pb_pricing_heading, .et_quote_content, .et_link_content, .et_audio_content, .et_pb_post_slider.et_pb_bg_layout_dark, .et_slide_in_menu_container, .et_pb_contact p input[type="radio"]:checked+label i:before{
+    background-color: #048b31 !important;
+}
+
+#totalbrutto{font-size: 1.4em; border-top: 1px solid #444; font-weight: bold;}
+#totalbrutto>span{float: right;}
+.help-block{background-color: #a7050d; color: #fff; display: block; padding: 4px 8px;}
+.has-error input{border: 1px solid #a7050d !important;}
+#retStatus{line-height: 1.5; display: none; padding: 5px 10px;}
+#retStatus.warning{background-color: #a7050d; color: #fff; font-weight: bold; text-align: center;}
+#retStatus.success{background-color: #07731e; color: #fff; font-weight: bold; text-align: center;}
