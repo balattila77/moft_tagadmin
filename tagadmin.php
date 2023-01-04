@@ -141,21 +141,47 @@ function tagadmin_register_form_shortcode($args, $content = "") {
             . '<p class="formfield et_pb_contact_field  et_pb_contact_field_last">'
             . '<strong>Tagfelvételi kérelem típusa</strong>'
             . '</p>'
-            . '<p><input class="selectMOFTtype" data-display-value="4 000 Ft" checked="checked" type="radio" id="tagdij_4000" class="input" value="4000" name="affiliation_fee">'
-            . '<label for="tagdij_4000">Éves MOFT tagdíj (teljes díj - 35 éves kortól nyugdíjas korig) - <strong>4 000 Ft</strong></label>'
+
+            . '<p><input class="selectMOFTtype" data-display-value="8 000 Ft" checked="checked" type="radio" id="egyetemi_klinikai" class="input" value="8000" name="affiliation_fee">'
+            . '<label for="egyetemi_klinikai">egyetemi diplomám van, klinikai intézetben dolgozom, éves tagdíjam <strong>8 000 (nyolcezer) forint</strong></label>'
             . '</p>'
-            . '<p><input class="selectMOFTtype" data-display-value="2 000 Ft" type="radio" id="tagdij_2000" class="input" value="2000" name="affiliation_fee">'
-            . '<label for="tagdij_2000"><i></i>Éves MOFT tagdíj 35 év alatt és nyugdíjasoknak (kedvezményes tagdíj) - <strong>2 000 Ft</strong></label>'
+            . '<p><input class="selectMOFTtype" data-display-value="5 000 Ft" type="radio" id="egyetemi_elmeleti" class="input" value="5000" name="affiliation_fee">'
+            . '<label for="egyetemi_elmeleti">egyetemi diplomám van, elméleti intézetben dolgozom, éves tagdíjam <strong>5 000 (ötezer) forint</strong></label>'
             . '</p>'
-            . '<p><input class="selectMOFTtype" data-display-value="0 Ft" type="radio" id="tagdij_0" class="input" value="0" name="affiliation_fee">'
-            . '<label for="tagdij_0">Éves MOFT tagdíj (ingyenes tagdíj 70 év felett) - <strong>0 Ft</strong></label>'
+            . '<p><input class="selectMOFTtype" data-display-value="4 000 Ft" type="radio" id="egyetemi" class="input" value="4000" name="affiliation_fee">'
+            . '<label for="egyetemi">egyetemi hallgató vagyok, éves tagdíjam <strong>4 000 (négyezer) forint</strong></label>'
             . '</p>'
-            . '<div id="totalbrutto">Bruttó végösszeg: <span>4 000 Ft</span></div>'
+            . '<p><input class="selectMOFTtype" data-display-value="4 000 Ft" type="radio" id="foiskolai" class="input" value="4000" name="affiliation_fee">'
+            . '<label for="foiskolai">főiskolai hallgató vagyok, éves tagdíjam <strong>4 000 (négyezer) forint</strong></label>'
+            . '</p>'
+            . '<p><input class="selectMOFTtype" data-display-value="4 000 Ft" type="radio" id="phd" class="input" value="4000" name="affiliation_fee">'
+            . '<label for="phd">PhD hallgató vagyok, éves tagdíjam <strong>4 000 (négyezer) forint</strong></label>'
+            . '</p>'
+            . '<p><input class="selectMOFTtype" data-display-value="4 000 Ft" type="radio" id="eu_szakdolgozo" class="input" value="4000" name="affiliation_fee">'
+            . '<label for="eu_szakdolgozo">egészségügyi szakdolgozó vagyok, éves tagdíjam <strong>4 000 (négyezer) forint</strong></label>'
+            . '</p>'
+            . '<p><input class="selectMOFTtype" data-display-value="4 000 Ft" type="radio" id="foisk_vegz" class="input" value="4000" name="affiliation_fee">'
+            . '<label for="foisk_vegz">főiskolai végzettségű szakember vagyok (nincs egyetemi diplomám), éves tagdíjam <strong>4 000 (négyezer) forint</strong></label>'
+            . '</p>'
+            . '<p><input class="selectMOFTtype" data-display-value="4 000 Ft" type="radio" id="70_alatti" class="input" value="4000" name="affiliation_fee">'
+            . '<label for="70_alatti">70 év alatti nyugdíjas vagyok, éves tagdíjam <strong>4 000 (négyezer) forint</strong></label>'
+            . '</p>'
+            . '<p><input class="selectMOFTtype" data-display-value="0 Ft" type="radio" id="70_feletti" class="input" value="0" name="affiliation_fee">'
+            . '<label for="70_feletti">70 év feletti nyugdíjas vagyok, nincs tagdíjfizetési kötelezettségem <strong>0 (nulla) forint</strong></label>'
+            . '</p>'
+
+            . '<div id="totalbrutto">Bruttó végösszeg: <span>8 000 Ft</span></div>'
     ;
 
     if (strlen($content)):
         $output .= '<div class="tagadmin_content">' . wpautop($content) . '</div>';
     endif;
+    $output .= '<p style="padding-top: 20px;" class="formfield et_pb_contact_field  et_pb_contact_field_last">'
+    . '<input type="checkbox" id="valosadatok_check" name="valosadatok" class="input" value="valosadatok">'
+    . '<label for="valosadatok">'
+    . 'Büntetőjogi felelősségem tudatában kijelentem, hogy a közölt adatok a valóságnak megfelelnek'
+    . '</label>'
+    . '</p>';
     $output .= '<div class="et_pb_contact">';
     $output .= '<p class="tagadmin_input_container" style="text-align: center;">'
             . '<input type="submit" name="tagadmin_submit" value="Tagfelvételi kérelem elküldése" />'
@@ -335,6 +361,7 @@ function tagadmin_save_subscription() {
             'charter' => filter_input(INPUT_POST, 'charter'),
             'privacy_policy' => filter_input(INPUT_POST, 'privacy_policy'),
             'affiliation_fee' => filter_input(INPUT_POST, 'affiliation_fee'),
+            'valosadatok' => filter_input(INPUT_POST, 'valosadatok'),
         );
         $errors = array();
 
@@ -377,6 +404,9 @@ function tagadmin_save_subscription() {
         }
         if (!$subscriber_data['charter']) {
             $errors['charter'] = 'Az egyesület alapszabályának elfogadása kötelező';
+        }
+        if (!$subscriber_data['valosadatok']) {
+            $errors['valosadatok'] = 'A nyilatkozat elfogadása kötelező';
         }
 
         // IF there are errors
